@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Summer youth employment: what the evidence shows</title>
+<link rel="stylesheet" href="https://use.typekit.net/nlh6iak.css">
+<style>
+@font-face{
+  font-family:"GascogneTS";
+  src:url("https://vital-city-nyc.github.io/vital-city-design-system/fonts/GascogneTS-Light.ttf") format("truetype");
+  font-weight:300; font-display:swap;
+}
+:root{
+  --vc-black:#050507; --vc-body:#262626; --vc-cloud:#dddddd; --vc-paper:#f7f7f4;
+  --vc-charcoal:#707175; --vc-orange:#ff7c53; --vc-magenta:#e7466d; --vc-cerulean:#217ebe;
+  --vc-chartreuse:#dde44c; --vc-peri:#9b9fbc;
+  --good:#2e7d5b; --bad:#e7466d; --mixed:#dde44c; --nul:#9b9fbc;
+  --hair:#ececec;
+  --sans:"halyard-text", Inter, "Helvetica Neue", Arial, sans-serif;
+  --serif:"GascogneTS", "Source Serif 4", Georgia, serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{font-family:var(--sans); font-weight:300; color:var(--vc-body); background:#fff; line-height:1.5; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1140px; margin:0 auto; padding:2.4rem 1.3rem 0;}
+
+.kicker{font-weight:700; text-transform:uppercase; letter-spacing:0.1em; font-size:0.72rem; color:var(--vc-orange);}
+h1{font-weight:800; font-size:clamp(1.7rem,1.4rem + 1.8vw,2.7rem); line-height:1.06; margin:0.4rem 0 0.55rem; letter-spacing:-0.01em;}
+.dek{font-weight:200; font-size:clamp(1.05rem,1rem + 0.35vw,1.28rem); max-width:56rem; margin:0 0 1.7rem; color:#333;}
+
+/* pattern strip */
+.patwrap{border-top:1px solid var(--vc-black); padding-top:1.4rem; margin-bottom:1.8rem;}
+.pathead{display:flex; align-items:flex-end; justify-content:space-between; gap:1rem 1.5rem; flex-wrap:wrap; margin:0 0 1rem;}
+.patwrap .ph{font-weight:700; text-transform:uppercase; letter-spacing:0.08em; font-size:0.66rem; color:var(--vc-charcoal); margin:0;}
+.patctl{display:flex; align-items:center; gap:0.5rem;}
+.patctl label{font-weight:700; text-transform:uppercase; letter-spacing:0.06em; font-size:0.6rem; color:var(--vc-charcoal);}
+.patctl select{font-family:var(--sans); font-size:0.82rem; font-weight:400; padding:0.38rem 0.55rem; border:1px solid var(--vc-black); background:#fff; border-radius:0; color:var(--vc-body);}
+.patnote{font-size:0.8rem; color:var(--vc-charcoal); margin:1rem 0 0;}
+.patnote b{color:var(--vc-body); font-weight:800;}
+.pat{display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem;}
+.patcell .pd{font-weight:800; font-size:0.9rem; color:var(--vc-black); margin-bottom:0.5rem;}
+.patbar{display:flex; height:0.6rem; background:#f0f0f0; overflow:hidden; margin-bottom:0.5rem;}
+.patseg{height:100%;}
+.patseg.good{background:var(--good);} .patseg.mixed{background:var(--mixed);}
+.patseg.bad{background:var(--bad);} .patseg.nul{background:var(--nul);}
+.patcap{font-size:0.84rem; color:#444;}
+.patcap b{font-weight:800;}
+
+/* how to read */
+.explain{border:1px solid var(--hair); background:var(--vc-paper); padding:1.05rem 1.2rem; margin-bottom:1.7rem;}
+.explain h2{font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 0.55rem; color:var(--vc-charcoal);}
+.explain p{margin:0 0 0.75rem; font-size:0.92rem; max-width:64rem;}
+.legend{display:flex; flex-wrap:wrap; gap:0.5rem 1.4rem;}
+.legend .item{display:flex; align-items:center; gap:0.45rem; font-size:0.84rem;}
+.dot{width:0.8rem; height:0.8rem; flex:none; border:1px solid rgba(0,0,0,.14);}
+.dot.good{background:var(--good);} .dot.bad{background:var(--bad);}
+.dot.nul{background:var(--nul);} .dot.mixed{background:var(--mixed);}
+.dot.none{background:#fff; border:1px dashed #c2c2c2;}
+
+/* controls */
+.controls{display:flex; flex-wrap:wrap; gap:0.8rem 1.1rem; align-items:flex-end; margin-bottom:1rem;}
+.ctl{display:flex; flex-direction:column; gap:0.3rem;}
+.ctl label{font-weight:700; text-transform:uppercase; letter-spacing:0.07em; font-size:0.6rem; color:var(--vc-charcoal);}
+select{font-family:var(--sans); font-size:0.86rem; font-weight:400; padding:0.45rem 0.6rem; border:1px solid var(--vc-black); background:#fff; border-radius:0; color:var(--vc-body);}
+.count{margin-left:auto; font-size:0.82rem; color:var(--vc-charcoal); align-self:center;}
+.count b{color:var(--vc-body); font-weight:800;}
+
+/* matrix */
+.grid{display:grid; grid-template-columns:minmax(300px,1.7fr) 1fr 1fr 1fr; margin:0 0 3.5rem;}
+.ghead{position:sticky; top:0; z-index:6; background:#fff; border-bottom:2px solid var(--vc-black); padding:1.4rem 1rem 0.75rem; cursor:pointer; user-select:none;}
+.ghead .hlabel{font-weight:700; text-transform:uppercase; letter-spacing:0.11em; font-size:0.68rem; color:#8a8b8f;}
+.ghead:hover .hlabel{color:var(--vc-body);}
+.ghead .caret{font-size:0.58rem; margin-left:0.35rem; color:#cbccd0; vertical-align:middle;}
+.ghead.active .hlabel{color:var(--vc-body);}
+.ghead.active .caret{color:var(--vc-orange);}
+.ghead .sub{display:block; font-weight:300; text-transform:none; letter-spacing:0; font-size:0.68rem; color:#b3b4b9; margin-top:0.2rem;}
+
+.srow{display:contents;}
+.scell{border-bottom:1px solid var(--hair); padding:1.25rem 1rem; cursor:pointer; background:#fff; transition:background .12s;}
+.srow:hover .scell{background-image:linear-gradient(rgba(0,0,0,.022),rgba(0,0,0,.022));}
+.srow.open .scell{background-image:linear-gradient(rgba(33,126,190,.06),rgba(33,126,190,.06));}
+
+.study .stitle{font-weight:800; font-size:1.02rem; line-height:1.22; color:var(--vc-black); letter-spacing:-0.005em;}
+.study .sauth{font-size:0.85rem; color:var(--vc-charcoal); margin-top:0.3rem;}
+.study .chips{display:flex; align-items:center; gap:0.4rem; margin-top:0.6rem; flex-wrap:wrap;}
+.pill,.chip{font-weight:700; text-transform:uppercase; letter-spacing:0.06em; font-size:0.58rem; padding:0.24rem 0.5rem; white-space:nowrap; line-height:1.3;}
+.pill.exp{background:#e9f1fb; color:#1c6ba4;}
+.pill.review{background:#f2f3d4; color:#66691a;}
+.chip{background:#f1f1f0; color:#6c6d71;}
+.otherchip{font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#9a9ba0;}
+.exhint{display:block; font-size:0.68rem; color:#a9aaae; margin-top:0.65rem; font-weight:400;}
+.exhint b{color:var(--vc-orange); font-weight:700;}
+.srow.open .exhint b::after{content:"";}
+
+/* outcome cells — status tint + solid pill for at-a-glance scanning */
+.out{border-left:4px solid var(--acc, transparent);}
+.out.good{--acc:var(--good); background:#e9f3ed;}
+.out.bad{--acc:var(--bad); background:#fbe8ee;}
+.out.mixed{--acc:#c2cb2f; background:#f6f8d8;}
+.out.nul{--acc:#c7c9d6; background:#eef0f5;}
+.out.none{--acc:transparent; background:#fff;}
+.olab{display:inline-flex; align-items:center; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; font-size:0.6rem; padding:0.22rem 0.5rem; margin-bottom:0.5rem; color:#fff; line-height:1.2;}
+.olab.good{background:var(--good);} .olab.bad{background:var(--bad);}
+.olab.mixed{background:var(--mixed); color:#3a3d05;} .olab.nul{background:var(--vc-peri); color:#1f2233;}
+.olab.none{background:transparent; color:#a9aab0; border:1px dashed #cdced3; font-weight:700;}
+.oeff{display:block; font-size:0.9rem; line-height:1.4; color:var(--vc-body);}
+.out.nul .oeff{color:#5f606a;}
+.out.none .oeff{color:#a9aab0;}
+
+/* detail */
+.detail{grid-column:1 / -1; border-bottom:1px solid var(--hair); background:#fff; max-height:0; overflow:hidden; transition:max-height .3s ease;}
+.srow.open .detail{max-height:1800px;}
+.detail-inner{padding:0.4rem 1rem 1.8rem;}
+.detail .para{font-family:var(--sans); font-size:1.04rem; font-weight:300; line-height:1.62; max-width:56rem; margin:0.4rem 0 1.3rem; padding-left:1rem; border-left:2px solid var(--vc-orange);}
+.factgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:0.6rem 1.6rem; margin-bottom:1rem; border-top:1px solid var(--hair); padding-top:1rem;}
+.fact .k{font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:0.58rem; color:var(--vc-charcoal);}
+.fact .v{font-size:0.88rem; margin-top:0.15rem;}
+.detail h4{font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--vc-charcoal); margin:0.5rem 0 0.5rem;}
+.dstat{font-size:0.9rem; padding:0.45rem 0; border-bottom:1px solid var(--hair); max-width:64rem; line-height:1.5;}
+.dstat:last-of-type{border-bottom:none;}
+.dstat .dd{font-weight:700;}
+.src{display:inline-block; margin-top:1rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; font-size:0.7rem; color:var(--vc-black); text-decoration:none; border-bottom:2px solid var(--vc-orange); padding-bottom:2px;}
+.src:hover{color:var(--vc-orange);}
+
+.footer{background:var(--vc-orange); color:var(--vc-body); padding:1.8rem 1.3rem; font-size:0.85rem; margin-top:1rem;}
+.footer .fwrap{max-width:1140px; margin:0 auto;}
+.footer b{font-weight:700;} .footer a{color:var(--vc-body);}
+
+@media(max-width:760px){
+  .wrap{padding:1.6rem 1rem 0;}
+  .stats{grid-template-columns:repeat(2,1fr);} .stat:nth-child(2){border-right:none;}
+  .pat{grid-template-columns:1fr; gap:1rem;}
+  .grid{grid-template-columns:1fr;}
+  .ghead{display:none;}
+  .study{border-top:3px solid var(--vc-black); padding-top:1.1rem;}
+  .out{box-shadow:none; border-left:4px solid var(--acc, transparent);}
+  .clabel{display:block; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; font-size:0.58rem; color:var(--vc-charcoal); margin-bottom:0.3rem;}
+  .factgrid{grid-template-columns:1fr 1fr;}
+}
+.clabel{display:none;}
+body.embed .wrap{padding-top:1.1rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Research evidence review</div>
+  <h1>Do summer youth employment programs work?</h1>
+  <p class="dek">Twenty-six studies and evaluations of summer youth employment programs, from the 1978 Youth Incentive Entitlement pilots to a 2025 working paper. Each row is one study; the three columns show what it found on crime, jobs and school. Click a row for a plain-language summary and the underlying statistics.</p>
+
+  <div class="patwrap">
+    <div class="pathead">
+      <p class="ph">The pattern at a glance</p>
+      <div class="patctl">
+        <label for="f-evidence">Include</label>
+        <select id="f-evidence">
+          <option value="all">All 26 studies</option>
+          <option value="rct">Randomized trials only</option>
+          <option value="rct_quasi">Randomized + quasi-experimental</option>
+          <option value="obs">Observational only</option>
+          <option value="peer">Peer-reviewed only</option>
+          <option value="nopeer">Not peer-reviewed only</option>
+        </select>
+      </div>
+    </div>
+    <div class="pat" id="pattern"></div>
+    <p class="patnote" id="patnote"></p>
+  </div>
+
+  <div class="explain">
+    <h2>How to read this table</h2>
+    <p>Each row is one study. The three columns are the outcomes a study might measure — <b>crime &amp; justice</b>, <b>employment &amp; earnings</b> and <b>education</b>. Each cell names the specific thing that moved and in which direction; its color says whether the program <b>helped</b> that outcome, not how large or how certain the effect was — the words in the cell, and the statistics when you expand the row, carry that. An empty cell means the study did not measure that outcome. Click any row for a short plain-language summary, the sample and follow-up, the full statistics and a link to the paper.</p>
+    <p style="font-size:0.86rem;color:var(--vc-charcoal);margin:0 0 0.85rem;"><b>Reading the numbers:</b> “percentage points” (also written <b>pp</b> or <b>pts</b>) is the raw gap between two rates — e.g., a graduation rate rising from 63% to 67% is a 4-point gain, not 4%. <b>SD</b> = standard deviations, <b>CI</b> = confidence interval, and <b>p</b> is a statistical-significance value (smaller means more certain).</p>
+    <div class="legend">
+      <span class="item"><span class="dot good"></span> Favorable — improved this outcome</span>
+      <span class="item"><span class="dot nul"></span> No significant effect</span>
+      <span class="item"><span class="dot bad"></span> Adverse — worsened this outcome</span>
+      <span class="item"><span class="dot mixed"></span> Mixed — some groups only, or faded</span>
+      <span class="item"><span class="dot none"></span> Not examined</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="ctl">
+      <label for="f-outcome">Filter by outcome</label>
+      <select id="f-outcome">
+        <option value="all">All outcomes</option>
+        <option value="Crime &amp; justice">Crime &amp; justice</option>
+        <option value="Employment &amp; earnings">Employment &amp; earnings</option>
+        <option value="Education">Education</option>
+      </select>
+    </div>
+    <div class="ctl">
+      <label for="f-design">Study design</label>
+      <select id="f-design">
+        <option value="all">All designs</option>
+        <option value="rct">Randomized / lottery</option>
+        <option value="quasi">Quasi-experimental</option>
+        <option value="review">Systematic review</option>
+      </select>
+    </div>
+    <div class="ctl">
+      <label for="f-place">Place</label>
+      <select id="f-place">
+        <option value="all">Everywhere</option>
+        <option value="NYC">New York City</option>
+        <option value="Boston">Boston</option>
+        <option value="Chicago">Chicago</option>
+        <option value="Other U.S.">Other U.S.</option>
+        <option value="International">International</option>
+      </select>
+    </div>
+    <div class="count" id="count"></div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+</div>
+
+<div class="footer"><div class="fwrap">
+  <b>About this review.</b> A first-pass synthesis of 26 studies for Vital City. Colors show the <b>direction</b> of each finding, not its size or certainty — read the effect statement and expand the row for the underlying statistics. Findings are transcribed from the source documents; where a study did not measure an outcome it is marked “Not examined.” Effect sizes, confidence intervals and p-values appear as each study reported them. Draft for internal review — not yet published.
+</div></div>
+
+<script>
+const DATA = [
+{id:1,cite:"Farkas et al.",year:1982,title:"Youth Incentive Entitlement Pilot Projects: work and schooling over the program period",pub:"MDRC / Abt Associates",design:"quasi",designLabel:"Quasi-experimental",place:"Other U.S.",placeLabel:"17 U.S. pilot sites",sample:"4,033 (analysis sample); ~76,000 nationally",followup:"During the program (1978–1980)",
+ para:"The federal job-guarantee experiment offered a minimum-wage job to low-income 16-to-19-year-olds on the condition that they stayed in or returned to school. Comparing youth in program sites with matched comparison sites, it found the guarantee roughly doubled employment for Black youth and erased the Black–white employment gap while it ran. School enrollment rose modestly. It measured only the period during the program, not what happened after.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"good",short:"Youth employment ↑67.5%; Black youth ↑103%",detail:"Employment/population ratio 24.6% → 41.2%. Summer effect averaged +11.8 pp (+38.2%). Significance flagged * p<.10 ** p<.05 *** p<.01 (Black effect 21.8***)."},
+  {domain:"Education",status:"good",short:"Enrollment up; dropout down for the youngest",detail:"Total enrollment +4.8 pp (fall 1978). For 15–16-year-olds, dropout −3.3 pp (a 12.0% decrease)."}
+ ]},
+{id:2,cite:"Gueron",year:1984,title:"Lessons from a job guarantee: the Youth Incentive Entitlement Pilot Projects",pub:"MDRC",design:"quasi",designLabel:"Quasi-experimental",place:"Other U.S.",placeLabel:"17 U.S. pilot sites",sample:"~82,000 enrolled; $240M demonstration",followup:"Through fall 1981 (~1 yr post)",
+ para:"A synthesis of the same job-guarantee demonstration across 17 sites. It confirmed large employment gains — enough to close the Black–white youth employment gap while the program ran — but found no lasting effect on graduation or dropout, and showed the jobs were largely net-new rather than displacing other work. Its lesson: a job guarantee proves young people want to work, but wage subsidies alone do not fix schooling.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"good",short:"Closed the Black–white employment gap",detail:"Earnings rose ~$10–$13/week during operations; post-program (fall 1981) held at $10.48/week (~40% above comparison). Positive in Mississippi and Cincinnati site pairs; none in Baltimore."},
+  {domain:"Education",status:"nul",short:"No effect on graduation or dropout",detail:"By fall 1981 only ~half of both groups had graduated; dropout climbed similarly (~19% → ~40%). The program did avoid a negative enrollment effect."}
+ ]},
+{id:3,cite:"Walker & Vilella-Velez",year:1992,title:"Anatomy of a demonstration: STEP from pilot through replication",pub:"Public/Private Ventures",design:"rct",designLabel:"Randomized trial",place:"Other U.S.",placeLabel:"5-city demonstration",sample:"~5,000 randomly assigned",followup:"Per summer + 3.5–4.5 yrs",
+ para:"The Summer Training and Education Program paired part-time summer jobs with academic remediation and a life-skills curriculum for disadvantaged 14-and-15-year-olds, tested by random assignment in five cities. Youth made real reading, math and sexual-health-knowledge gains each summer — but the gains faded once they returned to unchanged schools, and years later STEP youth looked no different from the control group on dropout, employment or teen pregnancy.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"nul",short:"No lasting employment effect",detail:"Same employment rates as controls at follow-up. Descriptively, 15% (ages 17–18) to 25% (18–19) were neither working nor in school."},
+  {domain:"Education",status:"mixed",short:"Academic gains each summer that then faded",detail:"First-summer net impact ~0.5 grade equivalent (largely preventing summer learning loss). No school-year impact on scores, credits or dropout; long term, dropout and college entrance matched controls."},
+  {domain:"Other",status:"mixed",short:"Knowledge ↑ but teen-pregnancy unchanged",detail:"Contraceptive knowledge +2.08 pts (summer 1) on a 9-point scale. At ~4.5 yrs, 33% of young women were single parents — no different from controls."}
+ ]},
+{id:4,cite:"Grossman & Sipe",year:1992,title:"STEP: report on long-term impacts",pub:"Public/Private Ventures",design:"rct",designLabel:"Randomized trial",place:"Other U.S.",placeLabel:"5-city demonstration",sample:">3,000 across two cohorts",followup:"3.5–4.5 yrs post-enrollment",
+ para:"The long-term follow-up of the STEP experiment, and its sobering verdict: the two-summer model produced no durable gains. Treatment youth were, if anything, slightly less likely to be employed right after the program and no more likely to graduate, and teen-pregnancy and welfare rates were identical to controls. The in-program academic and knowledge gains decayed rapidly once the program ended.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"nul",short:"No lasting employment/wage effect",detail:"Months 16–18: 19.9% vs 23.7% employed, −3.8** (called inconsequential). 'STEP participation did not affect wages or hours for any group.'"},
+  {domain:"Education",status:"mixed",short:"No gain; one cohort graduated less",detail:"Multivariate dropout effects not significant. But Cohort II treatment youth graduated less on transcripts (−4.6*, −9.8**, −14.6***) and self-reports (−5.8*)."},
+  {domain:"Other",status:"nul",short:"No effect on pregnancy or welfare",detail:"~22–33% of young women had children, identical across groups. No significant difference in AFDC, food stamps or WIC. Extracted via OCR of a scanned report."}
+ ]},
+{id:5,cite:"McClanahan et al.",year:2004,title:"Enriching summer work: the Summer Career Exploration Program",pub:"Public/Private Ventures",design:"rct",designLabel:"Randomized trial",place:"Other U.S.",placeLabel:"Philadelphia & Camden",sample:"1,076 participants vs 498 control",followup:"~1 yr; 18 mo (records)",
+ para:"A six-week, career-oriented summer jobs program for low-income Philadelphia and Camden teens, evaluated by random assignment. It reliably got youth working that summer — 92% versus 62% of the control group — but a year later there was no difference in employment, earnings, school outcomes or crime. A classic short-program-fades result.",
+ outcomes:[
+  {domain:"Crime & justice",status:"nul",short:"No reduction in crime",detail:"18-month criminal records showed no treatment effect; very few youth in either group were ever arrested. Subgroup: youth doing poorly at entry were less likely to be suspended the next year."},
+  {domain:"Employment & earnings",status:"mixed",short:"Big summer jump (92% vs 62%), faded by year 1",detail:"Summer earnings $694.87 vs $446.74 (***p=.001). One year on: employment 60% vs 61% (n.s.), earnings $2,647 vs $2,526 (n.s.). Summer hourly wage actually lower ($5.30 vs $5.69)."},
+  {domain:"Education",status:"nul",short:"No effect on school outcomes",detail:"Plan to attend college 78% vs 81% (n.s.). Two small significant gains: college-prep enrollment (12% vs 8%) and visiting a college-access center (44% vs 30%)."}
+ ]},
+{id:6,cite:"Leos-Urbel",year:2014,title:"What is a summer job worth? Summer youth employment and academic outcomes",pub:"J. of Policy Analysis and Management",design:"rct",designLabel:"Lottery (natural experiment)",place:"NYC",placeLabel:"New York City",sample:"36,550 SYEP applicants (2007)",followup:"Following school year",
+ para:"One of the first studies of New York City's own SYEP, using the program's oversubscription lottery. Winning a summer job produced small but real gains in school attendance and in the number of Regents exams students took the next year — concentrated among older, chronically absent students. The extra exams passed came from more students taking them, not from higher scores.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"none",short:"Not examined",detail:""},
+  {domain:"Education",status:"good",short:"Attendance ↑; more Regents exams passed",detail:"Attendance +~1% (about 1–2 days; coefficient 0.022, SE 0.008, P<0.01). At-risk students (16+, low baseline attendance): +2.9% attempting the English Regents, +1.7% passing (P<0.10). Gains came from more test-taking, not higher scores."}
+ ]},
+{id:7,cite:"Heller",year:2014,title:"Summer jobs reduce violence among disadvantaged youth",pub:"Science",design:"rct",designLabel:"Randomized trial",place:"Chicago",placeLabel:"Chicago",sample:"1,634 randomized (730 treatment)",followup:"16 months",
+ para:"The landmark Chicago experiment that put “summer jobs reduce violence” on the map. An eight-week supported summer job for teens in high-violence schools cut violent-crime arrests 43% over the following 16 months — and, strikingly, most of the drop came after the job had ended, suggesting the program changed behavior rather than simply keeping young people busy.",
+ outcomes:[
+  {domain:"Crime & justice",status:"good",short:"Violent-crime arrests ↓43%",detail:"−0.0395 violent arrests (P=0.022), ~4 fewer per 100 youth; no change in property/drug/other. Most of the effect came after the program (13-month period −0.035, P=0.03). Adding a social-emotional-learning component changed nothing."},
+  {domain:"Employment & earnings",status:"none",short:"Not examined",detail:""},
+  {domain:"Education",status:"nul",short:"No effect on school attendance",detail:"Confidence intervals were tight enough to rule out attendance changes as the cause of the violence drop."}
+ ]},
+{id:8,cite:"Alam et al.",year:2015,title:"Summer jobs and girls' post-schooling incomes",pub:"Evaluation Review",design:"rct",designLabel:"Lottery (natural experiment)",place:"International",placeLabel:"Falun, Sweden",sample:"2,650 applicants",followup:"Up to 10 yrs after graduation",
+ para:"A Swedish lottery study tracking earnings up to a decade after high school. The long-run payoff was concentrated among academically weaker girls — offered girls earned about 8.6% more eight years out, with the lowest-grade girls gaining most — while for boys the effect was slightly negative. A caution against assuming a summer job helps every young person's earnings equally.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"mixed",short:"↑ for girls, ↓ for boys; null pooled",detail:"Offer effect on post-schooling income: females +SEK 8,500 (SE 3,600, p=0.02); males −SEK 12,100 (SE 5,900, p=0.04); all first-graders −SEK 1,300 (p=0.68). Gains concentrated in the lowest-grade girls."},
+  {domain:"Education",status:"none",short:"Not examined",detail:""}
+ ]},
+{id:9,cite:"Gelber, Isen & Kessler",year:2016,title:"The effects of youth employment: evidence from New York City lotteries",pub:"Quarterly Journal of Economics",design:"rct",designLabel:"Lottery (natural experiment)",place:"NYC",placeLabel:"New York City",sample:"294,580 lottery participants",followup:"Up to ~9 yrs (early cohorts)",
+ para:"The definitive large-scale study of NYC SYEP, linking nearly 295,000 lottery applicants to IRS tax records. It found the program raises income the summer of participation but slightly lowers earnings in later years, with no effect on college. Yet it measurably reduced incarceration and mortality — effects concentrated among young men that can dominate the program's cost-benefit case.",
+ outcomes:[
+  {domain:"Crime & justice",status:"good",short:"Incarceration ↓10% (young men)",detail:"Probability of incarceration −0.10 pp, a 10.36% reduction vs a 0.95% baseline, driven by males."},
+  {domain:"Employment & earnings",status:"mixed",short:"↑ that summer; slightly ↓ in later years",detail:"Participation year: net earnings +$876; probability of any job +71 pp. Later years: ~−$100/yr (prior workers and higher earners). Five-year net average +$536.53."},
+  {domain:"Education",status:"nul",short:"No effect on college enrollment",detail:"An extremely precise confidence interval rules out an effect larger than one one-hundredth of a year of college."},
+  {domain:"Other",status:"good",short:"Mortality ↓20% (young men); ~$773M in benefits",detail:"Probability of death −0.08 pp, 19.92% of a 0.38% baseline; homicide estimate ~66% as large as the all-cause effect. Overall marginally significant (10% level)."}
+ ]},
+{id:10,cite:"Heller, Pollack & Davis",year:2017,title:"The effects of summer jobs on youth violence",pub:"U.S. DOJ / OJJDP report",design:"rct",designLabel:"Randomized trial",place:"Chicago",placeLabel:"Chicago",sample:"1,634 randomized for 700 slots",followup:"2 yrs (arrests)",
+ para:"The follow-up to Heller's 2014 study, extending One Summer Chicago Plus to a larger, higher-risk group and adding employment and college outcomes. It replicated the big first-year violence drop of about 45%, but found no gains in formal employment, earnings or college enrollment — and the violence effect had faded by the second year.",
+ outcomes:[
+  {domain:"Crime & justice",status:"good",short:"Violent-crime arrests ↓45% in year 1",detail:"Year-1 violent arrests: LATE −4.487 per 100 (SE 2.000), a 45% decline (p<0.05; FWER-adjusted p=0.08). No effect on property/drug/other; no significant effect by year two."},
+  {domain:"Employment & earnings",status:"nul",short:"No effect on employment or earnings",detail:"Any formal employment LATE −0.02 (SE 0.02); quarterly earnings −$39.08 (SE 48.15) — imprecise zeros. Only two post-program quarters of data."},
+  {domain:"Education",status:"nul",short:"No effect on college enrollment",detail:"College enrollment LATE −0.02 (SE 0.03) vs a control mean of 0.40; per Heller 2014, no school-outcome effect."}
+ ]},
+{id:11,cite:"Valentine et al.",year:2017,title:"An introduction to the world of work: NYC's SYEP",pub:"MDRC",design:"rct",designLabel:"Lottery (natural experiment)",place:"NYC",placeLabel:"New York City",sample:"264,075 first-time applicants",followup:"5 years",
+ para:"The largest evaluation of NYC SYEP — 264,075 first-time applicants — using the admission lotteries with five years of follow-up. It confirmed enormous same-summer gains, a 54-point jump in employment and $580 more in earnings, but essentially no lasting effect on employment, earnings or education. This is the core tension of scaling summer jobs as a long-term intervention.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"mixed",short:"Huge same-summer gain; no lasting effect",detail:"Application summer: +53.9 pp employed*** and +$580 earnings*** (a 290% employment increase). Five years out: small positive employment in Year 1 that converged; statistically significant but tiny negative total-earnings impacts."},
+  {domain:"Education",status:"nul",short:"No effect on graduation or college",detail:"Year-1 attendance 83% in both groups; on-time graduation 57% in both; college enrollment 56% and graduation 6% in both over five years."}
+ ]},
+{id:12,cite:"Jacob, Lovett & Gross",year:2018,title:"Grow Detroit's Young Talent",pub:"UM Youth Policy Lab",design:"quasi",designLabel:"Quasi-experimental (matched)",place:"Other U.S.",placeLabel:"Detroit",sample:"31,628 applicants; 12,157 workers",followup:"2 academic years",
+ para:"A non-experimental look at Detroit's SYEP, comparing participants with applicants who were not selected. Participation was associated with better school outcomes — higher enrollment, SAT-taking and graduation, concentrated among lower-achieving students. Because youth were not randomly assigned, some of the gap could reflect who chose to participate, making this weaker evidence than the NYC and Chicago experiments.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"none",short:"Not examined",detail:""},
+  {domain:"Education",status:"good",short:"Graduation ↑5.3 and SAT-taking ↑4.1 percentage points",detail:"2015 cohort vs non-selected (all significant): enrollment 95.0% vs 93.1%; chronically absent 30.7% vs 33.0%; took SAT 73.3% vs 69.2%; graduated 87.3% vs 82.0%. Largest for low achievers. Standard errors not reported (non-experimental)."}
+ ]},
+{id:13,cite:"Modestino",year:2019,title:"How do summer youth employment programs improve criminal-justice outcomes, and for whom?",pub:"J. of Policy Analysis and Management",design:"rct",designLabel:"Randomized trial",place:"Boston",placeLabel:"Boston",sample:"1,186 offered vs 3,049 control",followup:"17 months",
+ para:"A randomized study of Boston's SYEP focused on crime. Winning a summer job cut violent-crime arraignments 35% and property arraignments 29% over 17 months. Survey evidence pointed to improved conflict-resolution and social-emotional skills — rather than simply the opportunity cost of being at work — as the mechanism behind the drop.",
+ outcomes:[
+  {domain:"Crime & justice",status:"good",short:"Violent ↓35%, property ↓29%",detail:"~−0.031 violent and −0.022 property arraignments per youth (ITT with 95% confidence intervals; larger for young men). No change in total arraignments or gun/drug/other crime."},
+  {domain:"Employment & earnings",status:"none",short:"Not examined",detail:""},
+  {domain:"Education",status:"none",short:"Not examined",detail:""},
+  {domain:"Other",status:"good",short:"Gains in social-emotional skills",detail:"Survey mechanism analysis (exploratory/correlational): short-term conflict-resolution and social-emotional skill gains predicted larger crime reductions."}
+ ]},
+{id:14,cite:"Modestino",year:2019,title:"Reducing inequality summer by summer",pub:"Evaluation and Program Planning",design:"rct",designLabel:"Randomized trial",place:"Boston",placeLabel:"Boston",sample:"264 treatment vs 965 control (ABCD)",followup:"12–18 months",
+ para:"A broader Boston SYEP evaluation spanning crime, school and short-term skills. It found large drops in violent (−35%) and property (−57%) arraignments plus better school attendance, with the biggest gains for Black and Hispanic young men — evidence for summer jobs as a tool to narrow inequality.",
+ outcomes:[
+  {domain:"Crime & justice",status:"good",short:"Violent ↓35%, property ↓57%",detail:"Reductions grew through the 17-month window (not just incapacitation). Subgroups: Black males 19–24 −8.9 arraignments/100; Hispanic males 19–24 −13.9/100."},
+  {domain:"Employment & earnings",status:"mixed",short:"No overall effect; older youth ↑2–3 percentage points",detail:"Employment and wages higher after SYEP than before but not significantly different from control overall. Older African-American males had higher employment and quarterly wages."},
+  {domain:"Education",status:"good",short:"Attendance ↑; course failures ↓15 percentage points",detail:"Attendance +2.7 pp (**p<.05); unexcused absences −4.5 days (***p<.01); course-failure −15.34 pp (*p<.10). No overall GPA effect."},
+  {domain:"Other",status:"good",short:"Social skills, aspirations ↑",detail:"Survey (probit marginal effects): resolve conflict +13.6 pp, connected to neighborhood +21.2 pp, want a 4-year college +11.0 pp, has a resume +24.5 pp."}
+ ]},
+{id:15,cite:"Bolter et al.",year:2019,title:"SummerWorks impact report",pub:"KentuckianaWorks / KYSTATS",design:"quasi",designLabel:"Quasi-experimental (matched)",place:"Other U.S.",placeLabel:"Louisville",sample:"2,568 participants (matched pairs)",followup:"1 yr (up to 4 yrs combined)",
+ para:"A matched-comparison study of Louisville's SummerWorks. Participants were about 10% more likely to be employed a year later and 7% more likely to graduate, with gains concentrated among Black and low-income youth. It lacks random assignment and reports only significance flags rather than effect sizes, so treat it as suggestive.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"good",short:"Employment ↑9.9% a year later",detail:"Reported as percentage-point differences flagged significant at the .05 level (12.5% for young adults; +10% or more for Black and low-income youth). No confidence intervals or effect sizes reported."},
+  {domain:"Education",status:"mixed",short:"Graduation & college ↑; no GPA effect",detail:"Graduation +6.9%, post-secondary enrollment +11.2% (1 yr). No significant difference in absences or GPA. Matched-pair design, not randomized."}
+ ]},
+{id:16,cite:"Davis & Heller",year:2020,title:"Rethinking the benefits of youth employment: heterogeneous effects of summer jobs",pub:"Review of Economics and Statistics",design:"rct",designLabel:"Randomized trial",place:"Chicago",placeLabel:"Chicago",sample:"6,850 across two cohorts",followup:"2–3 years",
+ para:"A rigorous two-cohort Chicago experiment digging into who benefits. Supported summer jobs cut violent-crime arrests about 35% overall — but the youth whose employment improved were younger, more school-engaged teens, not the disconnected youth the program targets, and property-crime arrests actually rose. It reframes the value of summer jobs around violence reduction rather than jobs.",
+ outcomes:[
+  {domain:"Crime & justice",status:"mixed",short:"Violent ↓35%, but property ↑45%",detail:"Pooled violent −6.4 per 100, a 35% decline (Year-1 result robust to multiple-testing, p=0.03). Property crime +5.8 per 100, +45% (p=0.054), less robust to adjustment."},
+  {domain:"Employment & earnings",status:"nul",short:"No employment or earnings gain",detail:"Small crowd-out of the regular labor force; the 'benefiter' subgroup (causal forest) was younger and more school-engaged, not the disconnected youth targeted."},
+  {domain:"Education",status:"nul",short:"No effect on school",detail:"No change in re-enrollment, attendance or GPA; pooled CI rules out more than a 4–5 day increase in days present."}
+ ]},
+{id:17,cite:"Atwell et al.",year:2020,title:"The impact of SYEP in Cleveland on criminal-justice and educational outcomes",pub:"Case Western Reserve University",design:"quasi",designLabel:"Quasi-experimental (matched)",place:"Other U.S.",placeLabel:"Cleveland",sample:"3,184 completers vs 16,150 comparison",followup:"1–2 years",
+ para:"A matched-comparison study of Cleveland's Y.O.U. summer program. Participants had lower delinquency filings and jail rates, and better attendance and graduation, than similar non-participants — and the crime gap widened over two years. It is suggestive rather than definitive, because the non-random design cannot fully rule out who selected in.",
+ outcomes:[
+  {domain:"Crime & justice",status:"good",short:"Delinquency & jail rates ↓",detail:"Delinquency filings 10% vs 14% at 2 yrs; incarceration 8% vs 13% — both statistically significant, gap widening. No exact p-values, CIs or effect sizes in the brief."},
+  {domain:"Employment & earnings",status:"none",short:"Not examined",detail:""},
+  {domain:"Education",status:"good",short:"Attendance & graduation ↑",detail:"Attendance 87% vs 85%; graduation 77% vs 66% (both significant). College matriculation 37% vs 31% (not significant)."}
+ ]},
+{id:18,cite:"Schwartz et al.",year:2021,title:"Making summer matter: youth employment and academic performance",pub:"Quantitative Economics",design:"rct",designLabel:"Lottery (natural experiment)",place:"NYC",placeLabel:"New York City",sample:"196,620 applications (2005–2008)",followup:"Following academic year",
+ para:"A lottery study of NYC SYEP's academic effects at scale. A summer job produced small gains in Regents exams passed — about 0.14 standard deviations — and, notably, the effect grew with each additional summer a student participated, pointing to repeat participation as a design lever the city can pull.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"none",short:"Not examined",detail:""},
+  {domain:"Education",status:"good",short:"More Regents passed; grows with repeat summers",detail:"Participation raised exams passed (≥65) by 0.023 (~0.14 SD, significant at 1%), ~20% of the free-lunch pass-rate gap. No effect for first-time appliers, but significant for the second summer and larger for the third."}
+ ]},
+{id:19,cite:"Heller",year:2022,title:"When scale and replication work: learning from summer youth employment experiments",pub:"J. of Public Economics",design:"rct",designLabel:"Randomized trials",place:"Other U.S.",placeLabel:"Chicago & Philadelphia",sample:"~9,900 across two cities",followup:"~1 year (main)",
+ para:"Two new randomized trials in Chicago and Philadelphia testing whether the crime effects of summer jobs hold up across cities and program models. They largely do — arrests fell 52–65% and juvenile incarceration about 80% in Philadelphia — with benefits concentrated among higher-risk youth. Reassuring evidence for cities weighing expansion.",
+ outcomes:[
+  {domain:"Crime & justice",status:"good",short:"Arrests ↓52–65%; juvenile jail ↓~80%",detail:"Philadelphia WorkReady: −3 arrests per 100 (p=0.043), a 65% decline. Chicago OSC+: 52% drop (p=0.125). Juvenile incarceration LATE −1.5 pp, ~80% (p=0.09). Violent-crime effects imprecise but consistent with prior 30–40% declines."},
+  {domain:"Employment & earnings",status:"nul",short:"Little employment gain",detail:"Consistent across sites; no detectable heterogeneity by program model or provider."},
+  {domain:"Other",status:"good",short:"Child-protective cases ↓~33%",detail:"CPS receipt −0.6 pp / 33% (p=0.09). Mental-health/substance-abuse treatment −3.3 pp / 31% (not significant in the full sample)."}
+ ]},
+{id:20,cite:"Kessler et al.",year:2022,title:"The effects of youth employment on crime: evidence from New York City lotteries",pub:"NBER working paper",design:"rct",designLabel:"Lottery (natural experiment)",place:"NYC",placeLabel:"New York City",sample:"163,447 in lottery data",followup:"Summer + 1, 3, 5 yrs",
+ para:"The NYC counterpart to the Chicago crime studies, using SYEP lotteries linked to state criminal records. The clearest payoff was during the summer itself — arrests down 17% and convictions down 31%, with much larger effects for the 3% of applicants already justice-involved. The effects did not persist significantly in later years.",
+ outcomes:[
+  {domain:"Crime & justice",status:"good",short:"Summer arrests ↓17%, convictions ↓31%",detail:"Program summer: any arrest −17%, any conviction −31%, felony conviction −38%. At-risk youth (3% with a prior arrest): arrests −23%, convictions −52%. Post-program (1/3/5 yrs): no statistically significant effect."},
+  {domain:"Employment & earnings",status:"none",short:"Not examined (see Gelber 2016)",detail:""},
+  {domain:"Education",status:"none",short:"Not examined",detail:""},
+  {domain:"Other",status:"good",short:"Averted-crime benefits ~$652–1,250/youth",detail:"Against a program cost of ~$2,000/youth; benefits equal ~46.5%–89.4% of cost for these youth."}
+ ]},
+{id:21,cite:"Modestino",year:2023,title:"School's out: how summer youth employment programs affect academic outcomes",pub:"Education Finance and Policy",design:"rct",designLabel:"Randomized trial",place:"Boston",placeLabel:"Boston",sample:"1,186 offered vs 3,049 control",followup:"Up to 4 years",
+ para:"The first study to link a summer jobs program to higher graduation. Boston SYEP lottery winners were 4.4 points more likely to graduate on time and less likely to drop out, with better attendance and a modest GPA bump — though the attendance and GPA gains faded without a second summer of participation.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"none",short:"Not examined",detail:""},
+  {domain:"Education",status:"good",short:"On-time graduation ↑4.4 percentage points; dropout ↓",detail:"On-time graduation +4.4 pp (+7%); dropout −2.5 pp; attendance +2.4 pp; chronic absenteeism −5.9 pp; GPA +0.13. Attendance/GPA gains faded without a second summer."}
+ ]},
+{id:22,cite:"Beam & Quimbo",year:2023,title:"The impact of short-term employment for low-income youth",pub:"Review of Economics and Statistics",design:"rct",designLabel:"Randomized trial",place:"International",placeLabel:"Philippines",sample:"3,795 baseline (2,510 treatment)",followup:"8–12 months",
+ para:"A randomized study of a Philippine summer jobs program for low-income students — a useful international parallel. A short summer job raised the chance of working 8-to-12 months later by 79%, apparently by signaling worker quality to employers rather than building skills, and without pushing young people out of school.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"good",short:"Working 8–12 mo later ↑79%",detail:"Employment +4.4 pp on a 5.6% base (significant at 1%); summer earnings +~$119. Concentrated among college-level students. Consistent with a signaling channel — only 12% had previously worked for that employer."},
+  {domain:"Education",status:"nul",short:"No overall enrollment change",detail:"Aggregate enrollment +1.1 pp (p=0.569). High-school-level +4.1 pp (significant at 5%), concentrated among men."},
+  {domain:"Other",status:"nul",short:"No skill gains (points to signaling)",detail:"Work-tasks skill index +0.10 SD (p=0.229); no non-cognitive skill gains."}
+ ]},
+{id:23,cite:"Heller & Kessler",year:2024,title:"Information frictions and skill signaling in the youth labor market",pub:"AEJ: Economic Policy",design:"rct",designLabel:"Randomized trial",place:"NYC",placeLabel:"New York City",sample:"43,409 participants",followup:"4 years",
+ para:"A clever NYC SYEP experiment that sent some participants a recommendation letter from their summer supervisor. The letter raised employment and earnings over the next four years — but only for higher-rated youth — while modestly slowing graduation for the lowest-achieving students. It shows the labor-market barrier young people face is often information, not skill.",
+ outcomes:[
+  {domain:"Crime & justice",status:"none",short:"Not examined",detail:""},
+  {domain:"Employment & earnings",status:"good",short:"Letter ↑ 4-yr earnings +$1,349 (high-rated)",detail:"Next-year employment +3 pp (+4.5%). Cumulative 4-year earnings +$1,349 (+4.9%), ~$12M across the treatment group. Low-rated youth saw near-zero net employment."},
+  {domain:"Education",status:"bad",short:"On-time graduation ↓ (lowest achievers)",detail:"On-time graduation −1.6 pp (−2%) overall; −5.7 pp (−8%) for below-median-GPA students, who also saw lower year-1 enrollment and GPA."}
+ ]},
+{id:24,cite:"Knutsson & Tyrefors",year:2024,title:"Labor-market effects of a youth summer employment program in Sweden",pub:"IFAU working paper",design:"quasi",designLabel:"Quasi-experimental",place:"International",placeLabel:"Stockholm, Sweden",sample:"92,095 applications",followup:"To age 24",
+ para:"A Swedish study of Stockholm's summer program for a mostly advantaged, non-targeted applicant pool — a revealing counterpoint. It found no effect on crime, education or health, and even reduced post-graduation income by up to 8%, apparently because a public summer job crowded out more valuable private-sector work experience. Context and targeting matter.",
+ outcomes:[
+  {domain:"Crime & justice",status:"nul",short:"No effect on crime",detail:"Very few applicants were convicted or suspected; no statistically significant effect. Contrasts with the U.S. lottery studies."},
+  {domain:"Employment & earnings",status:"bad",short:"Post-graduation income ↓7–8%",detail:"Higher income the program year, but −€700 to −€1,000 (~7–8% of the mean) after graduation, reaching ~−€1,000 at age 23 before fading by 24. Attributed to crowding out private-sector work experience; largest for non-academic-track applicants and men."},
+  {domain:"Education",status:"nul",short:"No effect on university enrollment",detail:"8.3% at university at age 20, rising to 11–13%, with no offer effect."},
+  {domain:"Other",status:"nul",short:"No effect on health",detail:"No discernible effect on prescriptions or hospital visits; only 75 deaths limit the mortality analysis."}
+ ]},
+{id:25,cite:"Muir et al.",year:2024,title:"Impact of summer programmes on disadvantaged young people: a systematic review",pub:"Campbell Systematic Reviews",design:"review",designLabel:"Systematic review",place:"International",placeLabel:"High-income countries",sample:"68 studies (41 meta-analyzed)",followup:"Varies by study",
+ para:"The most rigorous evidence synthesis to date, pooling dozens of studies of summer programs. For summer employment programs specifically, it found limited proven effects — no significant impact on later employment, and, in the pooled estimate, none on crime. A sobering meta-analytic check against reading too much into any single hopeful study. (Summer education programs fared better on schooling.)",
+ outcomes:[
+  {domain:"Crime & justice",status:"nul",short:"Pooled: no effect on crime",detail:"Any criminal-justice outcome −0.05 (95% CI −0.15 to +0.05), p=0.76. Evidence base limited; ~75% of impact evaluations rated low quality."},
+  {domain:"Employment & earnings",status:"nul",short:"Pooled: no effect on later employment",detail:"Entry to employment (short-term) log odds ratio −0.19 (95% CI −0.45 to +0.08), high heterogeneity, low confidence (if anything slightly negative)."},
+  {domain:"Education",status:"nul",short:"No clear effect (employment programs)",detail:"Passing tests log OR +0.02 (low confidence); English scores −0.03 (low confidence). Summer education programs, by contrast, showed positive schooling effects."}
+ ]},
+{id:26,cite:"Modestino et al.",year:2025,title:"Nothing stops a bullet like a job? Long-term impact of SYEP on criminal-justice involvement",pub:"Working paper",design:"rct",designLabel:"Randomized trial",place:"Boston",placeLabel:"Boston",sample:"1,186 offered vs ~3,033 control",followup:"4.5 years",
+ para:"The newest and longest-running crime study, following Boston SYEP applicants for four and a half years. It is the first to show the violence benefits persist — arrests down about 23% for young men, and violent-crime arrests down about 79% for those already justice-involved — strengthening the case for targeting at-risk youth and offering repeat summers.",
+ outcomes:[
+  {domain:"Crime & justice",status:"good",short:"Arrests ↓23%; violent ↓79% (at-risk)",detail:"Males: any arrest −18%, number of arrests −23% (ITT −0.093***, SE 0.036), violent arrests −28%. Prior-arrest youth: violent-arrest count −0.648** (a ~79% reduction). Co-offending arrests −36% for males. Effects driven by a second summer of participation."},
+  {domain:"Employment & earnings",status:"none",short:"Not examined",detail:""},
+  {domain:"Education",status:"none",short:"Not examined (cites dropout −22%, graduation +7%)",detail:""}
+ ]},
+];
+
+const URLS = {
+1:"https://drive.google.com/file/d/1YdOlT45izit-nYY4Y_CwD3lYSFAyQ_FX/view",
+2:"https://drive.google.com/file/d/1HXraed9M6IA2GDjxnNJO8w9MgIvlXfys/view",
+3:"https://drive.google.com/file/d/17MBlg4lnW5fz_YA5ykOHZWpkhgYK1a4R/view",
+4:"https://drive.google.com/file/d/15QfHTavN0TQq6fm4dcG67jGiu7p9-HG1/view",
+5:"https://drive.google.com/file/d/11w3faSiGqJH1x3nn237FlxrMaLbitwyC/view",
+6:"https://drive.google.com/file/d/1lsZ3JSEVvMp9X9eFmKVPLAYQ3Oxo2KWc/view",
+7:"https://drive.google.com/file/d/19K2Ye_17oFsV4CudTiVbXknU49DE3qU2/view",
+8:"https://drive.google.com/file/d/1GzpVHnaP2zggLTh2cR8zI07l6JSjeVTs/view",
+9:"https://drive.google.com/file/d/1oGBEIR49j9d-LEjs-R2RKmczNXnPPs6D/view",
+10:"https://drive.google.com/file/d/1ogvASQrvLfqMOF1ww1K2TPrHdS2tADX3/view",
+11:"https://drive.google.com/file/d/1PiL8V45PXoH5aV5bmGN2RApizTTUQHRx/view",
+12:"https://drive.google.com/file/d/162JjTqS2tDnkY8drHrZupIxsCHDQ_WHJ/view",
+13:"https://drive.google.com/file/d/1P2xSgYgm04KI27AX0sV0I6CHCkqGwlF_/view",
+14:"https://drive.google.com/file/d/1JYNK8MtGMjO4jo27EOD3vQ7KCDkVZLq6/view",
+15:"https://drive.google.com/file/d/1ff7O7s2UZ2jiG-fnFzIOIFiKxkODAQVf/view",
+16:"https://drive.google.com/file/d/1Yp3fGad69cH3I1Y7-BeAg0iub4RGpYYH/view",
+17:"https://drive.google.com/file/d/1JuDMEy-dXtTYbuaX33alySKVd8VYHAJD/view",
+18:"https://drive.google.com/file/d/17WYyS_rR5G8_SA-qfreEatrfm620KtwS/view",
+19:"https://drive.google.com/file/d/1tkFqnxLvX6JNXuvZwRBQ9raW62LxPXx9/view",
+20:"https://drive.google.com/file/d/1dBj2RTGkOtUsF7Rvqw0xr0OJkQCBjV-A/view",
+21:"https://drive.google.com/file/d/1BCiHA43JUfx98pFa30Lo74dCaB0Ee-eI/view",
+22:"https://drive.google.com/file/d/1_JcCatEeED7YPASvGrs-beamq21DFEZB/view",
+23:"https://drive.google.com/file/d/11ku7-olY3jkmHhb8VyWTEi3aoOG_9AKX/view",
+24:"https://drive.google.com/file/d/1a-9C9aylNODEAcadTEUqgKFYFgouSxMn/view",
+25:"https://drive.google.com/file/d/1pJpNb_VMPKxDr0sAJRnWr5htn_eKJZl6/view",
+26:"https://drive.google.com/file/d/1KY2BcCV7HE3RvacQpMp6Zb7_nqaSytv-/view",
+};
+
+const CORE = ["Crime & justice","Employment & earnings","Education"];
+const WORD = {good:"Favorable", bad:"Adverse", nul:"No effect", mixed:"Mixed", none:"Not examined"};
+const RANK = {good:0, mixed:1, bad:2, nul:3, none:4};
+
+// ---- evidence-quality classification (by study id) ----
+// tier: rct = randomized / lottery natural experiment; quasi = quasi-experimental
+// identification strategy; obs = observational (matched / propensity); review = synthesis.
+const TIER = {1:"quasi",2:"quasi",3:"rct",4:"rct",5:"rct",6:"rct",7:"rct",8:"rct",9:"rct",
+  10:"rct",11:"rct",12:"obs",13:"rct",14:"rct",15:"obs",16:"rct",17:"obs",18:"rct",19:"rct",
+  20:"rct",21:"rct",22:"rct",23:"rct",24:"quasi",25:"review",26:"rct"};
+const PEER = new Set([6,7,8,9,13,14,16,18,19,21,22,23,25]); // peer-reviewed journal (or Campbell review)
+DATA.forEach(s=>{ s.tier = TIER[s.id]; s.peer = PEER.has(s.id); });
+
+function passEvidence(s, mode){
+  switch(mode){
+    case "rct": return s.tier==="rct";
+    case "rct_quasi": return s.tier==="rct" || s.tier==="quasi";
+    case "obs": return s.tier==="obs";
+    case "peer": return s.peer;
+    case "nopeer": return !s.peer;
+    default: return true;
+  }
+}
+const EV_LABEL = {all:"all 26 studies", rct:"randomized trials only",
+  rct_quasi:"randomized and quasi-experimental studies", obs:"observational studies only",
+  peer:"peer-reviewed studies only", nopeer:"studies not yet peer-reviewed"};
+
+// ---- pattern strip (recomputes by evidence quality) ----
+function renderPattern(mode){
+  const subset = DATA.filter(s=>passEvidence(s, mode));
+  const html = CORE.map(domain=>{
+    const cells = subset.map(s=>s.outcomes.find(o=>o.domain===domain)).filter(o=>o && o.status!=="none");
+    const n = cells.length;
+    const c = {good:0,mixed:0,bad:0,nul:0};
+    cells.forEach(o=>{ c[o.status] = (c[o.status]||0)+1; });
+    if(n===0){
+      return `<div class="patcell"><div class="pd">${domain}</div>
+        <div class="patbar"></div>
+        <div class="patcap" style="color:#9a9ba0">No studies in this set measured it</div></div>`;
+    }
+    const seg = k => c[k] ? `<div class="patseg ${k}" style="width:${(c[k]/n*100).toFixed(1)}%"></div>` : "";
+    const parts = [];
+    if(c.good) parts.push(`<b>${c.good}</b> favorable`);
+    if(c.mixed) parts.push(`${c.mixed} mixed`);
+    if(c.bad) parts.push(`${c.bad} adverse`);
+    if(c.nul) parts.push(`${c.nul} no effect`);
+    return `<div class="patcell">
+      <div class="pd">${domain}</div>
+      <div class="patbar">${seg("good")}${seg("mixed")}${seg("bad")}${seg("nul")}</div>
+      <div class="patcap">${parts.join(" &middot; ")} <span style="color:#9a9ba0">(of ${n} that measured it)</span></div>
+    </div>`;
+  }).join("");
+  document.getElementById("pattern").innerHTML = html;
+  document.getElementById("patnote").innerHTML = (mode==="all")
+    ? `Summary reflects all <b>${DATA.length}</b> studies. Use the menu to recompute it for stronger designs only — the table below always lists all ${DATA.length}.`
+    : `Summary reflects <b>${subset.length}</b> ${EV_LABEL[mode]}. The table below still lists all ${DATA.length} studies.`;
+}
+document.getElementById("f-evidence").addEventListener("change", e=>renderPattern(e.target.value));
+renderPattern("all");
+
+const gridEl = document.getElementById("grid");
+const countEl = document.getElementById("count");
+let sortKey = "year", sortDir = "desc";
+
+const COLS = [
+  {key:"study", label:"Study", sub:""},
+  {key:"Crime & justice", label:"Crime &amp; justice", sub:"arrests, convictions, violence"},
+  {key:"Employment & earnings", label:"Employment &amp; earnings", sub:"jobs, wages, later income"},
+  {key:"Education", label:"Education", sub:"attendance, grades, graduation"},
+];
+
+function coreOutcome(s, domain){ return s.outcomes.find(o=>o.domain===domain) || {domain, status:"none", short:"Not examined", detail:""}; }
+function otherOutcomes(s){ return s.outcomes.filter(o=>!CORE.includes(o.domain)); }
+
+function cellHTML(o){
+  return `<div class="scell out ${o.status}" data-cell="1">
+    <span class="clabel">${o.domain}</span>
+    <span class="olab ${o.status}">${WORD[o.status]}</span>
+    <span class="oeff">${o.short}</span>
+  </div>`;
+}
+
+function studyHTML(s){
+  const others = otherOutcomes(s);
+  const otherChip = others.length ? `<span class="otherchip">＋ also: ${others.map(o=>o.domain.toLowerCase()).join(", ")}</span>` : "";
+  const pillClass = s.design==="review" ? "review" : "exp";
+  const studyCell = `<div class="scell study" data-cell="1">
+      <div class="stitle">${s.title}</div>
+      <div class="sauth">${s.cite}, ${s.year}</div>
+      <div class="chips">
+        <span class="pill ${pillClass}">${s.designLabel}</span>
+        <span class="chip">${s.placeLabel}</span>
+        ${otherChip}
+      </div>
+      <span class="exhint"><b>Click to expand ▸</b> summary &amp; statistics</span>
+    </div>`;
+  const outs = CORE.map(d=>cellHTML(coreOutcome(s,d))).join("");
+  const allStats = s.outcomes.filter(o=>o.detail).map(o=>`<div class="dstat"><span class="dd">${o.domain}.</span> ${o.detail}</div>`).join("");
+  const detail = `<div class="detail"><div class="detail-inner">
+      <p class="para">${s.para}</p>
+      <div class="factgrid">
+        <div class="fact"><div class="k">Program &amp; place</div><div class="v">${s.placeLabel}</div></div>
+        <div class="fact"><div class="k">Design</div><div class="v">${s.designLabel}</div></div>
+        <div class="fact"><div class="k">Sample</div><div class="v">${s.sample}</div></div>
+        <div class="fact"><div class="k">Follow-up</div><div class="v">${s.followup}</div></div>
+      </div>
+      <h4>Reported statistics</h4>
+      ${allStats || '<div class="dstat">See the effect statements in the row above.</div>'}
+      <a class="src" href="${URLS[s.id]||'#'}" target="_blank" rel="noopener">Open the source PDF →</a>
+    </div></div>`;
+  return `<div class="srow" data-row="${s.id}">${studyCell}${outs}${detail}</div>`;
+}
+
+function headerHTML(){
+  return COLS.map(c=>{
+    const active = sortKey===c.key;
+    const caret = active ? (sortDir==="asc" ? "▲" : "▼") : "▲";
+    const sub = c.sub ? `<span class="sub">${c.sub}</span>` : "";
+    return `<div class="ghead ${active?'active':''}" data-key="${c.key}">
+      <span class="hlabel">${c.label}<span class="caret">${caret}</span></span>${sub}
+    </div>`;
+  }).join("");
+}
+
+function sortRows(rows){
+  const dir = sortDir==="asc" ? 1 : -1;
+  return rows.sort((a,b)=>{
+    if(sortKey==="study") return a.title.localeCompare(b.title)*dir;
+    if(sortKey==="year") return (a.year-b.year)*dir || (a.id-b.id);
+    // outcome column: rank by status of that domain
+    const ra = RANK[(a.outcomes.find(o=>o.domain===sortKey)||{status:"none"}).status];
+    const rb = RANK[(b.outcomes.find(o=>o.domain===sortKey)||{status:"none"}).status];
+    return (ra-rb)*dir || (b.year-a.year);
+  });
+}
+
+function render(){
+  const fo=document.getElementById("f-outcome").value;
+  const fd=document.getElementById("f-design").value;
+  const fp=document.getElementById("f-place").value;
+  let rows=DATA.slice();
+  if(fd!=="all") rows=rows.filter(s=>s.design===fd);
+  if(fp!=="all") rows=rows.filter(s=>s.place===fp);
+  if(fo!=="all") rows=rows.filter(s=>s.outcomes.some(o=>o.domain===fo && o.status!=="none"));
+  rows=sortRows(rows);
+
+  gridEl.innerHTML = headerHTML() + (rows.map(studyHTML).join("") ||
+    `<div style="grid-column:1/-1;padding:1.5rem 1rem;color:var(--vc-charcoal)">No studies match these filters.</div>`);
+  countEl.innerHTML = `<b>${rows.length}</b> of ${DATA.length} studies`;
+
+  gridEl.querySelectorAll(".ghead").forEach(h=>{
+    h.addEventListener("click",()=>{
+      const k=h.getAttribute("data-key");
+      if(sortKey===k){ sortDir = sortDir==="asc" ? "desc" : "asc"; }
+      else { sortKey=k; sortDir = (k==="study") ? "asc" : (k==="year" ? "desc" : "asc"); }
+      render();
+    });
+  });
+  gridEl.querySelectorAll(".srow").forEach(row=>{
+    row.querySelectorAll('[data-cell]').forEach(c=>{
+      c.addEventListener("click",()=>row.classList.toggle("open"));
+    });
+  });
+}
+
+["f-outcome","f-design","f-place"].forEach(id=>document.getElementById(id).addEventListener("change",render));
+render();
+
+if (new URLSearchParams(location.search).get('embed') === '1') {
+  document.body.classList.add('embed');
+  const postHeight=()=>{const h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);parent.postMessage({type:'vc-embed-height',id:'syep-evidence',height:h},'*');};
+  window.addEventListener('load',postHeight); window.addEventListener('resize',postHeight);
+  let n=0; const t=setInterval(()=>{postHeight(); if(++n>20) clearInterval(t);},300);
+}
+</script>
+</body>
+</html>
