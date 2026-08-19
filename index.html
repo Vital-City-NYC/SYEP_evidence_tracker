@@ -23,16 +23,15 @@
 *{box-sizing:border-box;}
 html,body{margin:0;}
 body{font-family:var(--sans); font-weight:300; color:var(--vc-body); background:#fff; line-height:1.5; -webkit-font-smoothing:antialiased;}
-.wrap{max-width:1140px; margin:0 auto; padding:2.4rem 1.3rem 0;}
+.wrap{max-width:1260px; margin:0 auto; padding:2.4rem 1.3rem 0;}
 
 .kicker{font-weight:700; text-transform:uppercase; letter-spacing:0.1em; font-size:0.72rem; color:var(--vc-orange);}
 h1{font-weight:800; font-size:clamp(1.7rem,1.4rem + 1.8vw,2.7rem); line-height:1.06; margin:0.4rem 0 0.55rem; letter-spacing:-0.01em;}
 .dek{font-weight:200; font-size:clamp(1.05rem,1rem + 0.35vw,1.28rem); max-width:56rem; margin:0 0 1.7rem; color:#333;}
 
 /* pattern strip */
-.patwrap{border-top:1px solid var(--vc-black); padding-top:1.4rem; margin-bottom:1.8rem;}
-.pathead{display:flex; align-items:flex-end; justify-content:space-between; gap:1rem 1.5rem; flex-wrap:wrap; margin:0 0 1rem;}
-.patwrap .ph{font-weight:700; text-transform:uppercase; letter-spacing:0.08em; font-size:0.66rem; color:var(--vc-charcoal); margin:0;}
+.patwrap{border-top:1px solid var(--vc-black); padding-top:1.3rem; margin-bottom:1.3rem;}
+.patwrap .ph{font-weight:700; text-transform:uppercase; letter-spacing:0.08em; font-size:0.66rem; color:var(--vc-charcoal); margin:0 0 0.9rem;}
 .patctl{display:flex; align-items:center; gap:0.5rem;}
 .patctl label{font-weight:700; text-transform:uppercase; letter-spacing:0.06em; font-size:0.6rem; color:var(--vc-charcoal);}
 .patctl select{font-family:var(--sans); font-size:0.82rem; font-weight:400; padding:0.38rem 0.55rem; border:1px solid var(--vc-black); background:#fff; border-radius:0; color:var(--vc-body);}
@@ -66,8 +65,11 @@ select{font-family:var(--sans); font-size:0.86rem; font-weight:400; padding:0.45
 .count{margin-left:auto; font-size:0.82rem; color:var(--vc-charcoal); align-self:center;}
 .count b{color:var(--vc-body); font-weight:800;}
 
+/* slim legend above the table */
+.legend-bar{display:flex; flex-wrap:wrap; gap:0.5rem 1.3rem; margin:0 0 0.4rem; font-size:0.8rem; color:var(--vc-charcoal);}
+
 /* matrix */
-.grid{display:grid; grid-template-columns:minmax(300px,1.7fr) 1fr 1fr 1fr; margin:0 0 3.5rem;}
+.grid{display:grid; grid-template-columns:minmax(340px,2fr) 1fr 1fr 1fr; margin:0 0 3rem;}
 .ghead{position:sticky; top:0; z-index:6; background:#fff; border-bottom:2px solid var(--vc-black); padding:1.4rem 1rem 0.75rem; cursor:pointer; user-select:none;}
 .ghead .hlabel{font-weight:700; text-transform:uppercase; letter-spacing:0.11em; font-size:0.68rem; color:#8a8b8f;}
 .ghead:hover .hlabel{color:var(--vc-body);}
@@ -77,21 +79,22 @@ select{font-family:var(--sans); font-size:0.86rem; font-weight:400; padding:0.45
 .ghead .sub{display:block; font-weight:300; text-transform:none; letter-spacing:0; font-size:0.68rem; color:#b3b4b9; margin-top:0.2rem;}
 
 .srow{display:contents;}
-.scell{border-bottom:1px solid var(--hair); padding:1.25rem 1rem; cursor:pointer; background:#fff; transition:background .12s;}
+.scell{border-bottom:1px solid var(--hair); padding:0.85rem 0.95rem; cursor:pointer; background:#fff; transition:background .12s;}
 .srow:hover .scell{background-image:linear-gradient(rgba(0,0,0,.022),rgba(0,0,0,.022));}
 .srow.open .scell{background-image:linear-gradient(rgba(33,126,190,.06),rgba(33,126,190,.06));}
 
-.study .stitle{font-weight:800; font-size:1.02rem; line-height:1.22; color:var(--vc-black); letter-spacing:-0.005em;}
-.study .sauth{font-size:0.85rem; color:var(--vc-charcoal); margin-top:0.3rem;}
-.study .chips{display:flex; align-items:center; gap:0.4rem; margin-top:0.6rem; flex-wrap:wrap;}
-.pill,.chip{font-weight:700; text-transform:uppercase; letter-spacing:0.06em; font-size:0.58rem; padding:0.24rem 0.5rem; white-space:nowrap; line-height:1.3;}
+.study{position:relative;}
+.rowcaret{position:absolute; top:0.85rem; right:0.7rem; font-size:0.7rem; color:#c2c3c8; transition:transform .2s;}
+.srow:hover .rowcaret{color:var(--vc-orange);}
+.srow.open .rowcaret{transform:rotate(90deg); color:var(--vc-orange);}
+.study .stitle{font-weight:800; font-size:0.97rem; line-height:1.2; color:var(--vc-black); letter-spacing:-0.005em; padding-right:1rem;}
+.study .sauth{font-size:0.8rem; color:var(--vc-charcoal); margin-top:0.22rem;}
+.study .chips{display:flex; align-items:center; gap:0.35rem; margin-top:0.45rem; flex-wrap:wrap;}
+.pill,.chip{font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:0.57rem; padding:0.2rem 0.45rem; white-space:nowrap; line-height:1.3;}
 .pill.exp{background:#e9f1fb; color:#1c6ba4;}
 .pill.review{background:#f2f3d4; color:#66691a;}
 .chip{background:#f1f1f0; color:#6c6d71;}
-.otherchip{font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#9a9ba0;}
-.exhint{display:block; font-size:0.68rem; color:#a9aaae; margin-top:0.65rem; font-weight:400;}
-.exhint b{color:var(--vc-orange); font-weight:700;}
-.srow.open .exhint b::after{content:"";}
+.otherchip{font-size:0.58rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#9a9ba0;}
 
 /* outcome cells: status tint + solid pill for at-a-glance scanning */
 .out{border-left:4px solid var(--acc, transparent);}
@@ -127,8 +130,13 @@ select{font-family:var(--sans); font-size:0.86rem; font-weight:400; padding:0.45
 .src{display:inline-block; margin-top:1rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; font-size:0.7rem; color:var(--vc-black); text-decoration:none; border-bottom:2px solid var(--vc-orange); padding-bottom:2px;}
 .src:hover{color:var(--vc-orange);}
 
-.footer{background:var(--vc-orange); color:var(--vc-body); padding:1.8rem 1.3rem; font-size:0.85rem; margin-top:1rem;}
-.footer .fwrap{max-width:1140px; margin:0 auto;}
+.method{border-top:1px solid var(--vc-black); padding:1.6rem 1.3rem 0.4rem;}
+.method .fwrap{max-width:1260px; margin:0 auto;}
+.method h3{font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--vc-charcoal); margin:0 0 0.8rem;}
+.method p{font-size:0.86rem; color:#4a4a4a; max-width:66rem; margin:0 0 0.75rem; line-height:1.55;}
+.method b{color:var(--vc-body); font-weight:700;}
+.footer{background:var(--vc-orange); color:var(--vc-body); padding:1.3rem 1.3rem; font-size:0.82rem; margin-top:1.4rem;}
+.footer .fwrap{max-width:1260px; margin:0 auto;}
 .footer b{font-weight:700;} .footer a{color:var(--vc-body);}
 
 @media(max-width:760px){
@@ -150,43 +158,11 @@ body.embed .wrap{padding-top:1.1rem;}
 <div class="wrap">
   <div class="kicker">Research evidence review</div>
   <h1>Do summer youth employment programs work?</h1>
-  <p class="dek">Twenty-six studies and evaluations of summer youth employment programs, from the 1978 Youth Incentive Entitlement pilots to a 2025 working paper. Each row is one study; the three columns show what it found on crime, jobs and school. Click a row for a plain-language summary and the underlying statistics.</p>
-
-  <div class="patwrap">
-    <div class="pathead">
-      <p class="ph">The pattern at a glance</p>
-      <div class="patctl">
-        <label for="f-evidence">Include</label>
-        <select id="f-evidence">
-          <option value="all">All 26 studies</option>
-          <option value="rct">Randomized trials only</option>
-          <option value="rct_quasi">Randomized + quasi-experimental</option>
-          <option value="obs">Observational only</option>
-          <option value="peer">Peer-reviewed only</option>
-          <option value="nopeer">Not peer-reviewed only</option>
-        </select>
-      </div>
-    </div>
-    <div class="pat" id="pattern"></div>
-    <p class="patnote" id="patnote"></p>
-  </div>
-
-  <div class="explain">
-    <h2>How to read this table</h2>
-    <p>Each row is one study. The three columns are the outcomes a study might measure: <b>crime &amp; justice</b>, <b>employment &amp; earnings</b> and <b>education</b>. Each cell names the specific thing that moved and in which direction; its color says whether the program <b>helped</b> that outcome, not how large or how certain the effect was; the words in the cell, and the statistics when you expand the row, carry that. An empty cell means the study did not measure that outcome. Click any row for a short plain-language summary, the sample and follow-up, the full statistics and a link to the paper.</p>
-    <p style="font-size:0.86rem;color:var(--vc-charcoal);margin:0 0 0.85rem;"><b>Reading the numbers:</b> “percentage points” (also written <b>pp</b> or <b>pts</b>) is the raw gap between two rates. For example, a graduation rate rising from 63% to 67% is a 4-point gain, not 4%. <b>SD</b> = standard deviations, <b>CI</b> = confidence interval, and <b>p</b> is a statistical-significance value (smaller means more certain).</p>
-    <div class="legend">
-      <span class="item"><span class="dot good"></span> Favorable: improved this outcome</span>
-      <span class="item"><span class="dot nul"></span> No significant effect</span>
-      <span class="item"><span class="dot bad"></span> Adverse: worsened this outcome</span>
-      <span class="item"><span class="dot mixed"></span> Mixed: some groups only, or faded</span>
-      <span class="item"><span class="dot none"></span> Not examined</span>
-    </div>
-  </div>
+  <p class="dek">Twenty-six studies and evaluations of summer youth employment programs, from the 1978 Youth Incentive Entitlement pilots to a 2025 working paper, and what they find for crime, jobs and school.</p>
 
   <div class="controls">
     <div class="ctl">
-      <label for="f-outcome">Filter by outcome</label>
+      <label for="f-outcome">Outcome</label>
       <select id="f-outcome">
         <option value="all">All outcomes</option>
         <option value="Crime &amp; justice">Crime &amp; justice</option>
@@ -195,12 +171,14 @@ body.embed .wrap{padding-top:1.1rem;}
       </select>
     </div>
     <div class="ctl">
-      <label for="f-design">Study design</label>
+      <label for="f-design">Study type</label>
       <select id="f-design">
-        <option value="all">All designs</option>
-        <option value="rct">Randomized / lottery</option>
-        <option value="quasi">Quasi-experimental</option>
-        <option value="review">Systematic review</option>
+        <option value="all">All 26 studies</option>
+        <option value="rct">Randomized / lottery only</option>
+        <option value="rct_quasi">Randomized + quasi-experimental</option>
+        <option value="obs">Observational only</option>
+        <option value="peer">Peer-reviewed only</option>
+        <option value="nopeer">Not peer-reviewed only</option>
       </select>
     </div>
     <div class="ctl">
@@ -217,11 +195,32 @@ body.embed .wrap{padding-top:1.1rem;}
     <div class="count" id="count"></div>
   </div>
 
+  <div class="patwrap">
+    <p class="ph">The pattern at a glance</p>
+    <div class="pat" id="pattern"></div>
+  </div>
+
+  <div class="legend legend-bar">
+    <span class="item"><span class="dot good"></span> Favorable</span>
+    <span class="item"><span class="dot nul"></span> No significant effect</span>
+    <span class="item"><span class="dot bad"></span> Adverse</span>
+    <span class="item"><span class="dot mixed"></span> Mixed</span>
+    <span class="item"><span class="dot none"></span> Not examined</span>
+  </div>
+
   <div class="grid" id="grid"></div>
 </div>
 
+<div class="method"><div class="fwrap">
+  <h3>Notes on method</h3>
+  <p><b>What the colors mean.</b> A cell is colored only where a study reports a statistically significant effect: green where the program improved the outcome, magenta where it worsened it, chartreuse where the effect was mixed or held only for some groups. Periwinkle marks an outcome a study measured but where it found no significant change. A handful of colored findings are marginal or suggestive; those, and the exact p-values and confidence intervals, appear in each study's expanded row.</p>
+  <p><b>Comparison groups.</b> Every effect is measured against a counterfactual, named in each expanded row. In the randomized and lottery studies that is the control group not offered a summer job. In the matched observational studies it is comparable non-participants, which supports weaker causal claims.</p>
+  <p><b>Reading the numbers.</b> “Percentage points” (pp) is the raw gap between two rates: a graduation rate rising from 63% to 67% is a 4-point gain, not 4%. SD is standard deviations, CI a confidence interval, and p a statistical-significance value, where smaller means more certain.</p>
+  <p><b>Sources and limits.</b> Findings are transcribed from the source documents linked in each row. Two of the STEP reports were read through OCR of scanned files, and several entries are working papers not yet peer-reviewed, as flagged in the study type. This is a first-pass synthesis for internal review.</p>
+</div></div>
+
 <div class="footer"><div class="fwrap">
-  <b>About this review.</b> A first-pass synthesis of 26 studies for Vital City. Colors show the <b>direction</b> of each finding, not its size or certainty. Read the effect statement and expand the row for the underlying statistics. Findings are transcribed from the source documents; where a study did not measure an outcome it is marked “Not examined.” Effect sizes, confidence intervals and p-values appear as each study reported them. Draft for internal review, not yet published.
+  <b>Vital City</b> &middot; Research evidence review &middot; Draft for internal review
 </div></div>
 
 <script>
@@ -410,7 +409,7 @@ const DATA = [
   {domain:"Education",status:"nul",short:"No clear effect (employment programs)",detail:"Passing tests log OR +0.02 (low confidence); English scores −0.03 (low confidence). Summer education programs, by contrast, showed positive schooling effects."}
  ]},
 {id:26,cite:"Modestino et al.",year:2025,title:"Nothing stops a bullet like a job? Long-term impact of SYEP on criminal-justice involvement",pub:"Working paper",design:"rct",designLabel:"Randomized trial",place:"Boston",placeLabel:"Boston",sample:"1,186 offered vs ~3,033 control",followup:"4.5 years",comparator:"Control applicants not offered a Boston SYEP job",
- para:"The newest and longest-running crime study, following Boston SYEP applicants for four and a half years. It is the first to show the violence benefits persist, with arrests down about 23% for young men and violent-crime arrests down about 79% for those already justice-involved. The findings strengthen the case for targeting at-risk youth and offering repeat summers.",
+ para:"A crime study with the longest follow-up in this literature, tracking Boston SYEP applicants for four and a half years. It is among the first to show the violence benefits persist, with arrests down about 23% for young men and violent-crime arrests down about 79% for those already justice-involved. The findings strengthen the case for targeting at-risk youth and offering repeat summers.",
  outcomes:[
   {domain:"Crime & justice",status:"good",short:"Arrests ↓23%; violent ↓79% (at-risk)",detail:"Males: any arrest −18%, number of arrests −23% (ITT −0.093***, SE 0.036), violent arrests −28%. Prior-arrest youth: violent-arrest count −0.648** (a ~79% reduction). Co-offending arrests −36% for males. Effects driven by a second summer of participation."},
   {domain:"Employment & earnings",status:"none",short:"Not examined",detail:""},
@@ -470,13 +469,8 @@ function passEvidence(s, mode){
     default: return true;
   }
 }
-const EV_LABEL = {all:"all 26 studies", rct:"randomized trials only",
-  rct_quasi:"randomized and quasi-experimental studies", obs:"observational studies only",
-  peer:"peer-reviewed studies only", nopeer:"studies not yet peer-reviewed"};
-
-// ---- pattern strip (recomputes by evidence quality) ----
-function renderPattern(mode){
-  const subset = DATA.filter(s=>passEvidence(s, mode));
+// ---- pattern strip (recomputes over the current filtered subset) ----
+function renderPattern(subset){
   const html = CORE.map(domain=>{
     const cells = subset.map(s=>s.outcomes.find(o=>o.domain===domain)).filter(o=>o && o.status!=="none");
     const n = cells.length;
@@ -500,12 +494,7 @@ function renderPattern(mode){
     </div>`;
   }).join("");
   document.getElementById("pattern").innerHTML = html;
-  document.getElementById("patnote").innerHTML = (mode==="all")
-    ? `Summary reflects all <b>${DATA.length}</b> studies. Use the menu to recompute it for stronger designs only; the table below always lists all ${DATA.length}.`
-    : `Summary reflects <b>${subset.length}</b> ${EV_LABEL[mode]}. The table below still lists all ${DATA.length} studies.`;
 }
-document.getElementById("f-evidence").addEventListener("change", e=>renderPattern(e.target.value));
-renderPattern("all");
 
 const gridEl = document.getElementById("grid");
 const countEl = document.getElementById("count");
@@ -534,6 +523,7 @@ function studyHTML(s){
   const otherChip = others.length ? `<span class="otherchip">＋ also: ${others.map(o=>o.domain.toLowerCase()).join(", ")}</span>` : "";
   const pillClass = s.design==="review" ? "review" : "exp";
   const studyCell = `<div class="scell study" data-cell="1">
+      <span class="rowcaret">▸</span>
       <div class="stitle">${s.title}</div>
       <div class="sauth">${s.cite}, ${s.year}</div>
       <div class="chips">
@@ -541,7 +531,6 @@ function studyHTML(s){
         <span class="chip">${s.placeLabel}</span>
         ${otherChip}
       </div>
-      <span class="exhint"><b>Click to expand ▸</b> summary &amp; statistics</span>
     </div>`;
   const outs = CORE.map(d=>cellHTML(coreOutcome(s,d))).join("");
   const allStats = s.outcomes.filter(o=>o.detail).map(o=>`<div class="dstat"><span class="dd">${o.domain}.</span> ${o.detail}</div>`).join("");
@@ -588,10 +577,11 @@ function render(){
   const fo=document.getElementById("f-outcome").value;
   const fd=document.getElementById("f-design").value;
   const fp=document.getElementById("f-place").value;
-  let rows=DATA.slice();
-  if(fd!=="all") rows=rows.filter(s=>s.design===fd);
+  let rows=DATA.filter(s=>passEvidence(s, fd));
   if(fp!=="all") rows=rows.filter(s=>s.place===fp);
   if(fo!=="all") rows=rows.filter(s=>s.outcomes.some(o=>o.domain===fo && o.status!=="none"));
+
+  renderPattern(rows);          // summary reflects the same filtered set
   rows=sortRows(rows);
 
   gridEl.innerHTML = headerHTML() + (rows.map(studyHTML).join("") ||
